@@ -3,20 +3,18 @@ package DAO;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import model.Staff;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 
 public class DBConnect {
 
-    private static final String JDBC_URL = "jdbc:mysql://localhost:3306/quanlynhahangdb?useSSL=false";
+    private static final String JDBC_URL = 
+        "jdbc:mysql://localhost:3306/quanlynhahangdb?useUnicode=true&characterEncoding=utf8&useSSL=false";
+    
     private static final String JDBC_USER = "root";
     private static final String JDBC_PASSWORD = "Dang@211204";
 
-    private static Connection conn = null;
+    protected Connection conn; // cho phép DAO con dùng
 
+    // Load driver
     static {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -26,20 +24,18 @@ public class DBConnect {
         }
     }
 
-    public static Connection getConnection() {
+    // Constructor: tất cả DAO gọi để có connection
+    public DBConnect() {
         try {
-            if (conn == null || conn.isClosed()) {
-                conn = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
-                System.out.println(">> Connected to MySQL Database!");
-            }
+            conn = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
+            System.out.println(">> Connected to MySQL Database!");
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return conn;
     }
 
-    // Hàm đóng connection
-    public static void closeConnection() {
+    // Hàm đóng kết nối
+    public void close() {
         try {
             if (conn != null && !conn.isClosed()) {
                 conn.close();
@@ -49,6 +45,7 @@ public class DBConnect {
             e.printStackTrace();
         }
     }
+}
 
 //    public static void main(String[] args) {
 //        Connection testConn = DBConnect.getConnection();
@@ -76,4 +73,4 @@ public class DBConnect {
 //        }
 //    }
 
-}
+

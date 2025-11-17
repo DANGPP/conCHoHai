@@ -3,32 +3,36 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package DAO;
+
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.Connection;
-import model.Manager;
+import java.sql.ResultSet;
+import model.LoaiNguyenLieu;
 /**
  *
  * @author dangt
  */
-public class DAOManager extends DBConnect{
+public class DAOLoaiNguyenLieu extends DBConnect{
 
-    public DAOManager() {
+    public DAOLoaiNguyenLieu() {
     }
-    public Manager getInfo(int id){
-        String sql = "select * from manager where manager_id=?";
+    
+    public LoaiNguyenLieu getLoaiNguyenLieu( int id){
+        String sql = "select * from loainguyenlieu where id = ?";
         try {
             PreparedStatement pr = this.conn.prepareStatement(sql);
             pr.setInt(1, id);
             ResultSet rs = pr.executeQuery();
             if(rs.next()){
-                return new Manager(id, rs.getString("name"));
+                String name = rs.getString("name");
+                String donvi = rs.getString("donvi");
+                return new LoaiNguyenLieu(id, name, donvi);
+                
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
-        
     }
     
 }

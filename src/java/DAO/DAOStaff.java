@@ -13,12 +13,11 @@ import model.Staff;
  *
  * @author dangt
  */
-public class DAOStaff {
+public class DAOStaff extends DBConnect{
 
-    private Connection conn;
 
     public DAOStaff() {
-        this.conn = DBConnect.getConnection();
+        
     }
 
     public Staff checkLogin(String username, String password) {

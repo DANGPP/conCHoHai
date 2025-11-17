@@ -8,15 +8,15 @@ package model;
  *
  * @author dangt
  */
-public class Manager {
+public class LoaiNguyenLieu {
     private int id;
     private String name;
-    public Manager() {
-    }
+    private String donvi;
 
-    public Manager(int id,String name) {
+    public LoaiNguyenLieu(int id, String name, String donvi) {
         this.id = id;
         this.name = name;
+        this.donvi = donvi;
     }
 
     public int getId() {
@@ -27,11 +27,8 @@ public class Manager {
         return name;
     }
 
-    @Override
-    public String toString() {
-        return "Manager{" + "id=" + id + ", name=" + name + '}';
+    public String getDonvi() {
+        return donvi;
     }
-
-       
     
 }
